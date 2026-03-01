@@ -44,6 +44,28 @@
             <x-input-error :messages="$errors->get('password')" class="mt-1" />
         </div>
 
+        <!-- Captcha -->
+        <div class="space-y-2">
+            <x-input-label for="captcha" :value="__('Security Code')"
+                class="text-xs font-bold uppercase tracking-wider text-gray-500" />
+            <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                <div class="captcha-img overflow-hidden rounded-xl shadow-sm border border-gray-200 bg-white">
+                    {!! captcha_img('flat') !!}
+                </div>
+                <button type="button"
+                    class="text-sm font-semibold py-2 px-4 bg-gray-50 hover:bg-gray-100 text-gray-700 rounded-xl transition-all duration-200 border border-gray-200 shadow-sm focus:ring-4 focus:ring-indigo-500/10"
+                    onclick="document.querySelector('.captcha-img img').src = '/captcha/flat?' + Math.random()">
+                    Reload
+                </button>
+            </div>
+            <div class="relative group mt-2">
+                <x-text-input id="captcha"
+                    class="block w-full px-4 py-3 bg-gray-50 border-gray-200 focus:bg-white focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 transition-all duration-200 rounded-xl"
+                    type="text" name="captcha" required placeholder="Enter the code shown" autocomplete="off" />
+            </div>
+            <x-input-error :messages="$errors->get('captcha')" class="mt-1" />
+        </div>
+
         <!-- Remember Me -->
         <div class="flex items-center justify-between py-2">
             <label for="remember_me" class="inline-flex items-center group cursor-pointer">

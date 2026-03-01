@@ -15,16 +15,16 @@
                     <span class="w-1.5 h-1.5 rounded-full bg-red-600 mr-2 pulse"></span>
                     Halaman Resmi
                 </span>
-                <h1 class="text-5xl md:text-7xl font-extrabold text-gray-900 leading-[1.1] mb-8 tracking-tight">
-                    Bergerak <br>
+                <h1 class="text-3xl md:text-5xl font-extrabold text-gray-900 leading-[1.1] mb-8 tracking-tight">
+                    Pimpinan Komisariat <br>
                     <span
-                        class="text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-red-800 uppercase italic">Berkontribusi</span><br>
-                    Untuk Bangsa
+                        class="text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-red-800 uppercase italic">AR
+                        FACHRUDDIN</span><br>
                 </h1>
-                <p class="text-xl text-gray-600 leading-relaxed mb-10 max-w-xl">
+                {{-- <p class="text-xl text-gray-600 leading-relaxed mb-10 max-w-xl">
                     {{ config('app.name') }} berdedikasi membangun sinergi melalui inovasi, kolaborasi, dan aksi nyata
                     demi kemajuan masyarakat.
-                </p>
+                </p> --}}
                 <div class="flex flex-col sm:flex-row gap-5">
                     <a href="{{ route('profile') }}" class="btn-premium flex items-center justify-center">
                         Jelajahi Profil
@@ -41,7 +41,6 @@
             </div>
 
             <div class="relative order-1 lg:order-2 flex justify-center">
-                <!-- Modern Floating Image/Logo Setup -->
                 <div
                     class="relative w-full max-w-md aspect-square bg-white rounded-[3rem] shadow-premium flex items-center justify-center p-12 lg:scale-110 transition-transform duration-500 hover:scale-115">
                     @if (isset($profile) && $profile->logo)
@@ -53,24 +52,11 @@
                             <span class="text-white text-9xl font-black">AR</span>
                         </div>
                     @endif
-
-                    <!-- Stats Floaters -->
-                    <div class="absolute -top-6 -right-6 glass-card p-5 animate-bounce-slow">
-                        <span class="block text-2xl font-bold text-red-600 leading-none">100+</span>
-                        <span class="text-[10px] text-gray-500 font-bold uppercase tracking-widest mt-1">Anggota
-                            Aktif</span>
-                    </div>
-                    <div class="absolute -bottom-10 -left-6 glass-card p-5 animate-bounce-slow delay-700">
-                        <span class="block text-2xl font-bold text-gray-900 leading-none">50+</span>
-                        <span class="text-[10px] text-gray-500 font-bold uppercase tracking-widest mt-1">Program
-                            Berjalan</span>
-                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Brief Profile Section -->
     <section class="py-32 bg-white">
         <div class="section-container">
             @if (isset($profile) && $profile)
@@ -89,10 +75,10 @@
                             </div>
                         </div>
                         <!-- Floating Badge -->
-                        <div
+                        {{-- <div
                             class="absolute bottom-8 right-8 glass-card bg-red-600 py-3 px-6 text-white font-bold leading-none shadow-xl border-none">
                             Sejak {{ date('Y', strtotime($profile->created_at)) }}
-                        </div>
+                        </div> --}}
                     </div>
 
                     <div class="space-y-8">

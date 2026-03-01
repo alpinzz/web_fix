@@ -1,17 +1,17 @@
 <x-frontend-layout>
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <!-- Breadcrumb -->
-        <nav class="flex mb-8 text-sm text-gray-500">
+        {{-- <nav class="flex mb-8 text-sm text-gray-500">
             <a href="{{ route('home') }}" class="hover:text-red-600">Home</a>
             <span class="mx-2">/</span>
             <a href="{{ route('news') }}" class="hover:text-indigo-600">Berita</a>
             <span class="mx-2">/</span>
             <span class="text-gray-900 truncate">{{ $post->title }}</span>
-        </nav>
+        </nav> --}}
 
         <article>
             <header class="mb-8">
-                <div class="flex items-center text-sm text-gray-500 mb-4">
+                <div class="flex items-center text-sm text-gray-500 mt-12">
                     <time
                         datetime="{{ $post->published_at }}">{{ $post->published_at ? $post->published_at->format('d F Y') : '' }}</time>
                     <span class="mx-2">&bull;</span>

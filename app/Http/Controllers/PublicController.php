@@ -24,7 +24,12 @@ class PublicController extends Controller
 
     public function profile()
     {
-        $profile = OrganizationProfile::firstOrFail();
+        $profile = OrganizationProfile::firstOrCreate([], [
+            'name' => 'Nama Organisasi',
+            'description' => 'Tuliskan deskripsi organisasi di sini.',
+            'vision' => 'Visi organisasi.',
+            'mission' => 'Misi organisasi.',
+        ]);
         return view('public.profile', compact('profile'));
     }
 
@@ -46,12 +51,20 @@ class PublicController extends Controller
     /**
      * Display a listing of published news.
      */
-    public function news()
+    public function news(Request $request)
     {
-        $posts = Post::where('is_published', true)
-            ->whereNotNull('published_at')
-            ->orderBy('published_at', 'desc')
-            ->paginate(9);
+        $query = Post::where('is_published', true)
+            ->whereNotNull('published_at');
+
+        if ($request->has('search') && $request->search != '') {
+            $search = $request->search;
+            $query->where(function ($q) use ($search) {
+                $q->where('title', 'like', '%' . $search . '%')
+                    ->orWhere('content', 'like', '%' . $search . '%');
+            });
+        }
+
+        $posts = $query->orderBy('published_at', 'desc')->paginate(9)->withQueryString();
 
         return view('public.news.index', compact('posts'));
     }
@@ -67,7 +80,7 @@ class PublicController extends Controller
             ->take(3)
             ->get();
 
-        return view('public.news-detail', compact('post', 'recentPosts'));
+        return view('public.news.show', compact('post', 'recentPosts'));
     }
 
     public function gallery()

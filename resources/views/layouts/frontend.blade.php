@@ -6,12 +6,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Organization Profile') }}</title>
+    @php
+        $pageTitle = '';
+        if (request()->routeIs('profile')) {
+            $pageTitle = '-Profil';
+        } elseif (request()->routeIs('structure')) {
+            $pageTitle = '-Struktur';
+        } elseif (request()->routeIs('news')) {
+            $pageTitle = '-Berita';
+        } elseif (request()->routeIs('news.detail') && isset($post)) {
+            $pageTitle = '-' . $post->title;
+        } elseif (request()->routeIs('gallery')) {
+            $pageTitle = '-Galeri';
+        } elseif (View::hasSection('title')) {
+            $pageTitle = '-' . View::getSection('title');
+        }
+    @endphp
+    <title>PK AR Fachruddin{{ $pageTitle }}</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    {{-- Font Awesome --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -132,7 +153,7 @@
             <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
                 <!-- Branding -->
                 <div class="col-span-1 md:col-span-2">
-                    <a href="/" class="flex items-center mb-6">
+                    <a href="{{ route('home') }}" class="flex items-center mb-6">
                         <div class="w-8 h-8 bg-red-600 rounded-lg flex items-center justify-center mr-2.5">
                             <span class="text-white font-bold text-sm">P</span>
                         </div>
@@ -145,15 +166,26 @@
                     </p>
                     <!-- Social Placeholder -->
                     <div class="flex space-x-4">
-                        @for ($i = 0; $i < 4; $i++)
-                            <a href="#"
-                                class="w-10 h-10 rounded-xl bg-gray-50 flex items-center justify-center text-gray-400 hover:bg-red-50 hover:text-red-600 transition-all duration-300">
-                                <span class="sr-only">Social</span>
-                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                                    <circle cx="12" cy="12" r="10" />
-                                </svg>
-                            </a>
-                        @endfor
+
+                        <a href="https://www.instagram.com/pk_arfachruddinumpwrj/"
+                            class="w-10 h-10 rounded-xl bg-gray-50 flex items-center justify-center text-gray-400 hover:bg-red-50 hover:text-red-600 transition-all duration-300">
+                            <span class="sr-only">Social</span>
+
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                        <a href="http://www.youtube.com/@pkarfachruddin"
+                            class="w-10 h-10 rounded-xl bg-gray-50 flex items-center justify-center text-gray-400 hover:bg-red-50 hover:text-red-600 transition-all duration-300">
+                            <span class="sr-only">Social</span>
+
+                            <i class="fa-brands fa-youtube"></i>
+                        </a>
+                        <a href="#"
+                            class="w-10 h-10 rounded-xl bg-gray-50 flex items-center justify-center text-gray-400 hover:bg-red-50 hover:text-red-600 transition-all duration-300">
+                            <span class="sr-only">Social</span>
+
+                            <i class="fa-brands fa-tiktok"></i>
+                        </a>
+
                     </div>
                 </div>
 
@@ -175,7 +207,7 @@
                 </div>
 
                 <!-- Links 2 (Contact Removed -> Placeholder for other info) -->
-                <div>
+                {{-- <div>
                     <h4 class="text-sm font-bold text-gray-900 uppercase tracking-widest mb-6">Kontribusi</h4>
                     <ul class="space-y-4">
                         <li><a href="#" class="text-gray-500 hover:text-red-600 transition-colors">Donasi</a>
@@ -185,16 +217,16 @@
                         <li><a href="#" class="text-gray-500 hover:text-red-600 transition-colors">Kemitraan</a>
                         </li>
                     </ul>
-                </div>
+                </div> --}}
             </div>
 
             <div
                 class="pt-12 border-t border-gray-100 flex flex-col md:flex-row justify-between items-center text-sm text-gray-400">
                 <p>&copy; {{ date('Y') }} PK AR Fachruddin. All rights reserved.</p>
-                <div class="mt-4 md:mt-0 flex space-x-8">
+                {{-- <div class="mt-4 md:mt-0 flex space-x-8">
                     <a href="#" class="hover:text-gray-600 transition">Privacy Policy</a>
                     <a href="#" class="hover:text-gray-600 transition">Terms of Service</a>
-                </div>
+                </div> --}}
             </div>
         </div>
     </footer>

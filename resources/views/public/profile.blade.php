@@ -88,7 +88,12 @@
                                 Action</span>
                             <h3 class="text-4xl font-extrabold mb-8 italic">Misi</h3>
                             <ul class="space-y-6">
-                                @foreach ($profile->mission as $mission)
+                                @php
+                                    $missions = is_string($profile->mission)
+                                        ? json_decode($profile->mission, true) ?? [$profile->mission]
+                                        : $profile->mission;
+                                @endphp
+                                @foreach ((array) $missions as $mission)
                                     <li class="flex items-start">
                                         <div
                                             class="mt-1.5 mr-4 w-6 h-6 rounded-full bg-white/20 flex items-center justify-center flex-shrink-0">

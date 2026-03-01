@@ -67,20 +67,7 @@
                                 </div>
                             @endif
 
-                            <div class="relative group">
-                                <div
-                                    class="w-full h-32 bg-gray-50 rounded-[1.5rem] border-2 border-dashed border-gray-200 flex flex-col items-center justify-center overflow-hidden transition-all duration-500 group-hover:border-red-600/30 group-hover:bg-red-50/50">
-                                    <svg class="w-8 h-8 text-gray-300 mb-2 transition-transform duration-500 group-hover:scale-110"
-                                        fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                                            d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                                    </svg>
-                                    <p class="text-[10px] font-black uppercase tracking-widest text-gray-400">Ganti
-                                        Gambar</p>
-                                </div>
-                                <input id="image" type="file" name="image"
-                                    class="absolute inset-0 opacity-0 cursor-pointer">
-                            </div>
+                            <input id="image" type="file" name="image" class="filepond">
                             <x-input-error :messages="$errors->get('image')" />
                         </div>
                     </div>
@@ -153,4 +140,70 @@
             }
         }
     </style>
+
+    @push('styles')
+        <link href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet" />
+        <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css"
+            rel="stylesheet" />
+        <style>
+            .filepond--root {
+                font-family: 'Inter', sans-serif;
+                margin-bottom: 0;
+            }
+
+            .filepond--panel-root {
+                background-color: #f9fafb;
+                border: 2px dashed #e5e7eb;
+                border-radius: 1.5rem;
+            }
+
+            .filepond--drop-label {
+                color: #6b7280;
+            }
+
+            .filepond--label-action {
+                text-decoration-color: #dc2626;
+                color: #dc2626;
+                font-weight: 600;
+            }
+
+            .filepond--credits {
+                display: none;
+            }
+        </style>
+    @endpush
+
+    @push('scripts')
+        <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
+        <script src="https://unpkg.com/filepond-plugin-file-validate-size/dist/filepond-plugin-file-validate-size.js"></script>
+        <script src="https://unpkg.com/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.js"></script>
+        <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                // Register plugins
+                FilePond.registerPlugin(
+                    FilePondPluginImagePreview,
+                    FilePondPluginFileValidateSize,
+                    FilePondPluginFileValidateType
+                );
+
+                // Get a reference to the file input element
+                const inputElement = document.querySelector('input[type="file"].filepond');
+
+                // Create a FilePond instance
+                const pond = FilePond.create(inputElement, {
+                    storeAsFile: true,
+                    maxFileSize: '2MB',
+                    acceptedFileTypes: ['image/jpeg', 'image/png', 'image/jpg'],
+                    labelIdle: 'Tarik & Letakkan gambar baru atau <span class="filepond--label-action">Telusuri</span>',
+                    labelFileTypeNotAllowed: 'Tipe file tidak valid',
+                    fileValidateTypeLabelExpectedTypes: 'Harap unggah file JPG atau PNG',
+                    labelMaxFileSizeExceeded: 'File terlalu besar',
+                    labelMaxFileSize: 'Ukuran maksimum adalah 2MB',
+                    imagePreviewHeight: 200,
+                });
+            });
+        </script>
+    @endpush
 </x-app-layout>

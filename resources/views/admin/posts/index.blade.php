@@ -79,11 +79,11 @@
                                             <a href="{{ route('admin.posts.edit', $post) }}"
                                                 class="text-indigo-600 hover:text-indigo-900 mr-2">Edit</a>
                                             <form action="{{ route('admin.posts.destroy', $post) }}" method="POST"
-                                                class="inline-block"
-                                                onsubmit="return confirm('Apakah Anda yakin ingin menghapus berita ini?');">
+                                                class="inline-block" id="delete-form-{{ $post->id }}">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit"
+                                                <button type="button"
+                                                    onclick="confirmDelete('delete-form-{{ $post->id }}')"
                                                     class="text-red-600 hover:text-red-900">Hapus</button>
                                             </form>
                                         </td>
