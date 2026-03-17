@@ -36,15 +36,5 @@ Route::middleware('auth')->group(function () {
 });
 
 
-use Illuminate\Support\Facades\Mail;
-
-Route::get('/test-mail', function () {
-    Mail::raw('Test email', function ($message) {
-        $message->to('hidayatalfin928@gmail.com')
-            ->subject('Test');
-    });
-
-    return 'Email terkirim';
-});
 
 require __DIR__ . '/auth.php';
