@@ -35,4 +35,16 @@ Route::middleware('auth')->group(function () {
         ->names('admin.galleries');
 });
 
+
+use Illuminate\Support\Facades\Mail;
+
+Route::get('/test-mail', function () {
+    Mail::raw('Test email', function ($message) {
+        $message->to('email_kamu@gmail.com')
+            ->subject('Test');
+    });
+
+    return 'Email terkirim';
+});
+
 require __DIR__ . '/auth.php';
